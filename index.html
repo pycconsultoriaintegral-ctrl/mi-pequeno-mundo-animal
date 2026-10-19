@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Mi pequeño mundo animal</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Fondo de naturaleza (SVG integrado) -->
+    <svg class="fondo" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8fd8ff"/><stop offset="1" stop-color="#e6f7ff"/>
+        </linearGradient>
+      </defs>
+      <rect width="1000" height="600" fill="url(#cielo)"/>
+      <circle cx="870" cy="90" r="50" fill="#ffe066"/>
+      <g class="nube n1" fill="#fff"><ellipse cx="150" cy="100" rx="70" ry="28"/><ellipse cx="195" cy="85" rx="45" ry="26"/><ellipse cx="110" cy="88" rx="40" ry="22"/></g>
+      <g class="nube n2" fill="#fff"><ellipse cx="600" cy="150" rx="60" ry="22"/><ellipse cx="640" cy="138" rx="38" ry="20"/></g>
+      <path d="M0 430 Q200 330 400 420 T800 400 T1000 420 V600 H0Z" fill="#9be08a"/>
+      <path d="M0 490 Q250 420 500 490 T1000 470 V600 H0Z" fill="#6cc96b"/>
+    </svg>
+
+    <!-- Botones de control (visibles en las pantallas de juego) -->
+    <button id="btn-volver" class="btn-control oculto" aria-label="Volver al menú">🏠</button>
+    <button id="btn-sonido" class="btn-control" aria-label="Silenciar o activar el sonido">🔊</button>
+    <div id="estrellas" class="contador oculto" aria-label="Estrellas ganadas">⭐ <span id="num-estrellas">0</span></div>
+
+    <!-- Pantalla 1: Bienvenida -->
+    <section id="pantalla-bienvenida" class="pantalla activa">
+      <h1 class="titulo">Mi pequeño<br>mundo animal</h1>
+      <div class="mascota" aria-hidden="true">
+        <svg viewBox="0 0 200 200" width="220" height="220">
+          <ellipse cx="100" cy="115" rx="70" ry="65" fill="#ffb347"/>
+          <circle cx="50" cy="60" r="26" fill="#ffb347"/><circle cx="150" cy="60" r="26" fill="#ffb347"/>
+          <circle cx="50" cy="60" r="14" fill="#ffd9a0"/><circle cx="150" cy="60" r="14" fill="#ffd9a0"/>
+          <circle cx="75" cy="105" r="11" fill="#333"/><circle cx="125" cy="105" r="11" fill="#333"/>
+          <circle cx="79" cy="101" r="4" fill="#fff"/><circle cx="129" cy="101" r="4" fill="#fff"/>
+          <ellipse cx="100" cy="128" rx="14" ry="10" fill="#e8744f"/>
+          <path d="M82 145 Q100 162 118 145" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <circle cx="55" cy="130" r="9" fill="#ff8f8f" opacity=".6"/><circle cx="145" cy="130" r="9" fill="#ff8f8f" opacity=".6"/>
+        </svg>
+      </div>
+      <button class="btn-grande btn-jugar" data-ir="menu">▶ ¡Jugar!</button>
+    </section>
+
+    <!-- Pantalla 2: Menú principal -->
+    <section id="pantalla-menu" class="pantalla">
+      <h2 class="subtitulo">¿Qué quieres hacer?</h2>
+      <div class="tarjetas">
+        <button class="tarjeta t-galeria" data-ir="galeria">
+          <span class="icono">🦁</span><span class="etiqueta">Conoce los animales</span>
+        </button>
+        <button class="tarjeta t-adivina" data-ir="adivina">
+          <span class="icono">👂</span><span class="etiqueta">¿Quién suena así?</span>
+        </button>
+        <button class="tarjeta t-planta" data-ir="planta">
+          <span class="icono">🌱</span><span class="etiqueta">Riega la planta</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Pantallas de actividades (se llenan en las siguientes etapas) -->
+    <section id="pantalla-galeria" class="pantalla pantalla-galeria">
+      <h2 id="galeria-nombre" class="subtitulo">Toca un animal 👆</h2>
+      <div id="galeria-grid" class="galeria-grid"></div>
+    </section>
+    <section id="pantalla-adivina" class="pantalla pantalla-adivina">
+      <h2 id="adivina-texto" class="subtitulo">¿Quién suena así? 👂</h2>
+      <button id="adivina-oir" class="btn-grande btn-oir" aria-label="Escuchar otra vez">🔊 Escuchar</button>
+      <div id="adivina-opciones" class="adivina-opciones"></div>
+    </section>
+    <section id="pantalla-planta" class="pantalla pantalla-planta">
+      <h2 id="planta-texto" class="subtitulo">Toca la regadera para regar la semillita 💧</h2>
+      <div class="planta-escena">
+        <svg id="planta-svg" data-etapa="0" viewBox="0 0 300 360" role="img" aria-label="Maceta con planta">
+          <!-- tallo -->
+          <rect class="tallo" x="146" y="90" width="9" height="185" rx="4" fill="#3fa34d"/>
+          <!-- hojas -->
+          <ellipse class="hoja h1" cx="118" cy="215" rx="30" ry="14" fill="#4cc46a" transform="rotate(-25 118 215)"/>
+          <ellipse class="hoja h2" cx="184" cy="180" rx="30" ry="14" fill="#5fd47a" transform="rotate(25 184 180)"/>
+          <ellipse class="hoja h3" cx="116" cy="150" rx="26" ry="12" fill="#4cc46a" transform="rotate(-25 116 150)"/>
+          <!-- flor -->
+          <g class="flor">
+            <g fill="#ff7eb6">
+              <circle cx="150" cy="62" r="20"/><circle cx="150" cy="118" r="20"/><circle cx="122" cy="90" r="20"/><circle cx="178" cy="90" r="20"/>
+              <circle cx="130" cy="70" r="18"/><circle cx="170" cy="70" r="18"/><circle cx="130" cy="110" r="18"/><circle cx="170" cy="110" r="18"/>
+            </g>
+            <circle cx="150" cy="90" r="22" fill="#ffd93d"/>
+            <circle cx="142" cy="86" r="3.5" fill="#333"/><circle cx="158" cy="86" r="3.5" fill="#333"/>
+            <path d="M142 96 Q150 104 158 96" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+          <!-- semilla -->
+          <ellipse class="semilla" cx="150" cy="268" rx="9" ry="6" fill="#7b4a22"/>
+          <!-- maceta y tierra -->
+          <ellipse cx="150" cy="276" rx="78" ry="14" fill="#6b4226"/>
+          <path d="M70 272 H230 L212 345 Q150 360 88 345 Z" fill="#e8744f"/>
+          <rect x="62" y="262" width="176" height="22" rx="11" fill="#f08a63"/>
+          <ellipse cx="150" cy="264" rx="72" ry="9" fill="#6b4226"/>
+          <circle cx="125" cy="315" r="8" fill="#fff" opacity=".35"/><circle cx="175" cy="315" r="8" fill="#fff" opacity=".35"/>
+        </svg>
+        <div id="planta-gotas" class="gotas"></div>
+        <button id="planta-regadera" class="regadera" aria-label="Regar la planta">
+          <svg viewBox="0 0 160 120"><path d="M20 40 Q10 40 10 55 L14 100 Q14 108 22 108 H92 Q100 108 100 100 L104 55 Q104 40 94 40 Z" fill="#5f9df7"/>
+          <path d="M100 60 L150 25 L156 36 L104 78 Z" fill="#4a87dd"/><rect x="146" y="18" width="16" height="10" rx="4" fill="#4a87dd" transform="rotate(35 154 23)"/>
+          <path d="M22 40 Q57 -5 92 40" stroke="#4a87dd" stroke-width="8" fill="none"/>
+          <circle cx="40" cy="70" r="6" fill="#fff" opacity=".6"/></svg>
+        </button>
+      </div>
+      <button id="planta-otra" class="btn-grande oculto">🌱 Plantar otra</button>
+    </section>
+
+    <!-- Capa de recompensas -->
+    <canvas id="confeti" aria-hidden="true"></canvas>
+    <div id="mensaje-premio" class="mensaje-premio" role="status"></div>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/rewards.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/animales.js"></script>
+  <script src="js/galeria.js"></script>
+  <script src="js/adivina.js"></script>
+  <script src="js/planta.js"></script>
+</body>
+</html>
