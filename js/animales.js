@@ -97,7 +97,7 @@ const Animales = [
 
 // Grabaciones reales (audio/), duración máxima en segundos. El sonido de código queda como respaldo.
 const GRABACIONES = {
-  perro: ['audio/perro.ogg', 3], gato: ['audio/gato.wav', 3], vaca: ['audio/vaca.ogg', 3], cerdo: ['audio/cerdo.ogg', 3],
+  perro: ['audio/perro.ogg', 3], gato: ['audio/gato.wav', 3], vaca: ['audio/vaca.ogg', 4], cerdo: ['audio/cerdo.ogg', 3],
   pato: ['audio/pato.ogg', 3.5], rana: ['audio/rana.ogg', 3], leon: ['audio/leon.ogg', 4], elefante: ['audio/elefante.ogg', 3]
 };
 Animales.forEach(a => {

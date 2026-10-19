@@ -14,11 +14,10 @@
       b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta');
       rotulo.textContent = `${a.nombre}: ${a.texto}`;
       a.sonar();
-      setTimeout(() => Audio_.decir(a.nombre), 3400);
       conocidos.add(a.id);
       if (conocidos.size === Animales.length) {
         conocidos = new Set();
-        setTimeout(() => Premios.celebrar(3), 3800);
+        setTimeout(() => Premios.celebrar(3), 3200);
       }
     });
     cuadricula.appendChild(b);
